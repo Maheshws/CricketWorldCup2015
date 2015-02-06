@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/one3"
     tools:context="ws.mahesh.cwc2015.fragments.BlankFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -9,6 +10,7 @@
         android:id="@+id/hello_world"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textColor="#FFFFFF"
         android:text="TextView"
         android:padding="32dp" />
 

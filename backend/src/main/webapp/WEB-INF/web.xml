@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
         <servlet-name>CWC15Servlet</servlet-name>
-        <servlet-class>ws.mahesh.cwc15lite.servlet.CWC15Servlet</servlet-class>
+        <servlet-class>ws.mahesh.cwc2015.servlet.CWC15Servlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CWC15Servlet</servlet-name>
