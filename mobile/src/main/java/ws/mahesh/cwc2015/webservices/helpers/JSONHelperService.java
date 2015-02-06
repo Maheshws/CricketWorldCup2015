@@ -13,10 +13,10 @@ import ws.mahesh.cwc2015.webservices.models.NewsFeed;
 /**
  * Created by Mahesh on 2/6/2015.
  */
-public class JSONHelperService {
+public final class JSONHelperService {
 
 
-    public List<Matches> getMatchesJSON(String match1) {
+    public static List<Matches> getMatchesJSON(String match1) {
         List<Matches> matches=new ArrayList<>();
         try {
         JSONArray array= new JSONArray(match1);
@@ -31,7 +31,7 @@ public class JSONHelperService {
         return matches;
     }
 
-    public List<NewsFeed> getFeedJSON(String feed1) {
+    public static  List<NewsFeed> getFeedJSON(String feed1) {
         List<NewsFeed> feeds=new ArrayList<>();
         try {
             JSONArray array= new JSONArray(feed1);

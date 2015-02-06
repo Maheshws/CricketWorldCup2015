@@ -9,10 +9,12 @@ import android.view.MenuItem;
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 import ws.mahesh.cwc2015.fragments.BlankFragment;
+import ws.mahesh.cwc2015.fragments.FeedsFragment;
 import ws.mahesh.cwc2015.fragments.FixturesFragment;
 import ws.mahesh.cwc2015.fragments.PointsTableFragment;
 import ws.mahesh.cwc2015.fragments.TeamsFragment;
 import ws.mahesh.cwc2015.fragments.VenueFragment;
+import ws.mahesh.cwc2015.webservices.FeedUpdaterService;
 
 
 public class MainActivity extends MaterialNavigationDrawer {
@@ -28,7 +30,7 @@ public class MainActivity extends MaterialNavigationDrawer {
         // create sections
         scoresSection = this.newSection("Scores", this.getResources().getDrawable(R.drawable.ic_whatshot_black_24dp), new BlankFragment()).setSectionColor(getResources().getColor(R.color.colorScores));
 
-        countdownSection = this.newSection("Countdown", this.getResources().getDrawable(R.drawable.ic_schedule_black_24dp), new BlankFragment()).setSectionColor(getResources().getColor(R.color.colorCountDown));
+        countdownSection = this.newSection("Feed", this.getResources().getDrawable(R.drawable.ic_schedule_black_24dp), new FeedsFragment()).setSectionColor(getResources().getColor(R.color.colorCountDown));
         teamsSection = this.newSection("Teams", this.getResources().getDrawable(R.drawable.ic_group_black_24dp), new TeamsFragment()).setSectionColor(getResources().getColor(R.color.colorTeams));
         fixtureSection = this.newSection("Fixtures", this.getResources().getDrawable(R.drawable.ic_event_black_24dp), new FixturesFragment()).setSectionColor(getResources().getColor(R.color.colorFixtures));
         pointsSection = this.newSection("Points Table", this.getResources().getDrawable(R.drawable.ic_poll_black_24dp), new PointsTableFragment()).setSectionColor(getResources().getColor(R.color.colorPoints));
@@ -71,6 +73,7 @@ public class MainActivity extends MaterialNavigationDrawer {
         this.addBottomSection(settingsSection);
 
         this.setBackPattern(MaterialNavigationDrawer.BACKPATTERN_BACK_TO_FIRST);
+        startService(new Intent(MainActivity.this, FeedUpdaterService.class));
     }
 
 
@@ -87,7 +90,6 @@ public class MainActivity extends MaterialNavigationDrawer {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         if (id == R.id.action_open_playstore) {
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:" + "Maxx")));
@@ -96,8 +98,6 @@ public class MainActivity extends MaterialNavigationDrawer {
             }
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
 }

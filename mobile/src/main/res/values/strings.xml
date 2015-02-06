@@ -3,5 +3,6 @@
 
     <string name="app_name">World Cup 2015</string>
     <string name="action_play_store">Open PlayStore</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

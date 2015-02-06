@@ -31,4 +31,9 @@ public class NewsFeed {
     public String getTimestamp() {
         return timestamp;
     }
+    @Override
+    public String toString() {
+        return "Id: " + id + ",\nTitle: " + title
+                + ",\n Desc: " + description;
+    }
 }
