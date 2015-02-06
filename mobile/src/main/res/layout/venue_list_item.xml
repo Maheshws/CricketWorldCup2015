@@ -16,19 +16,21 @@
             android:id="@+id/textViewStdName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorVenue"
             android:gravity="center"
             android:padding="12dp"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:background="@color/colorVenue"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
+
             <ImageView
                 android:id="@+id/imageViewStdIcon"
                 android:layout_width="wrap_content"
@@ -41,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:text="New Text" />
-            </LinearLayout>
+        </LinearLayout>
 
 
     </LinearLayout>

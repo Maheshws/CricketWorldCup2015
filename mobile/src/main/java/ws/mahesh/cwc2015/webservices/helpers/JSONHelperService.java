@@ -17,27 +17,27 @@ public final class JSONHelperService {
 
 
     public static List<Matches> getMatchesJSON(String match1) {
-        List<Matches> matches=new ArrayList<>();
+        List<Matches> matches = new ArrayList<>();
         try {
-        JSONArray array= new JSONArray(match1);
-        for(int i=0;i<array.length();i++){
-            JSONObject elem=(JSONObject)array.get(i);
-            Matches match=new Matches(elem.getString("t1"),elem.getString("t2"),elem.getInt("id"));
-            matches.add(match);
-        }
+            JSONArray array = new JSONArray(match1);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject elem = (JSONObject) array.get(i);
+                Matches match = new Matches(elem.getString("t1"), elem.getString("t2"), elem.getInt("id"));
+                matches.add(match);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return matches;
     }
 
-    public static  List<NewsFeed> getFeedJSON(String feed1) {
-        List<NewsFeed> feeds=new ArrayList<>();
+    public static List<NewsFeed> getFeedJSON(String feed1) {
+        List<NewsFeed> feeds = new ArrayList<>();
         try {
-            JSONArray array= new JSONArray(feed1);
-            for(int i=0;i<array.length();i++){
-                JSONObject elem=(JSONObject)array.get(i);
-                NewsFeed feed=new NewsFeed(elem.getInt("id"),elem.getString("title"),elem.getString("desc"),elem.getString("timestamp"));
+            JSONArray array = new JSONArray(feed1);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject elem = (JSONObject) array.get(i);
+                NewsFeed feed = new NewsFeed(elem.getInt("id"), elem.getString("title"), elem.getString("desc"), elem.getString("timestamp"));
                 feeds.add(feed);
             }
         } catch (JSONException e) {

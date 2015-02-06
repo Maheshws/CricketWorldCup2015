@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,6 +28,7 @@ import java.util.TimerTask;
 import ws.mahesh.cwc2015.R;
 import ws.mahesh.cwc2015.databasehelpers.DatabaseHelper;
 import ws.mahesh.cwc2015.feeds.FeedsAdapter;
+import ws.mahesh.cwc2015.webservices.Refreshers;
 import ws.mahesh.cwc2015.webservices.models.NewsFeed;
 
 /**
@@ -36,6 +38,7 @@ public class FeedsFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<NewsFeed> newsFeeds = new ArrayList<>();
     private FeedsAdapter adapter;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     public FeedsFragment() {
         // Required empty public constructor
@@ -50,16 +53,49 @@ public class FeedsFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.feeds_fragment_layout);
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.feeds_recyclerview);
         newsFeeds.clear();
         getFeed();
         adapter = new FeedsAdapter(getActivity(), newsFeeds);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshContent();
+                    }
+                }).start();
+            }
+        });
+    }
+
+    private void refreshContent() {
+        final String oldT=newsFeeds.get(0).getTimestamp();
+        new Refreshers(getActivity()).getFeed();
+        getFeed();
+        final String newT=newsFeeds.get(0).getTimestamp();
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(newT.equalsIgnoreCase(oldT)) {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    return;
+                }
+                adapter = new FeedsAdapter(getActivity(), newsFeeds);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
     }
 
     private void makeDumFeed() {
-        NewsFeed foo=new NewsFeed(0,"Welcome to World Cup 2015 App","Please make sure you have internet connection to get latest updates from World Cup", ""+Calendar.getInstance().getTime());
+        NewsFeed foo=new NewsFeed(0,"Welcome to World Cup 2015 App","Please make sure you have internet connection to get latest updates from World Cup\nSwipe to refresh", ""+Calendar.getInstance().getTime());
         newsFeeds.add(foo);
     }
 

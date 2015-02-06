@@ -10,16 +10,16 @@ import java.net.URL;
  */
 public final class HTTPHelperService {
 
-    private static final String MAIN_URL="http://app.wc15.co/";
+    private static final String MAIN_URL = "http://app.wc15.co/";
 
-    public static String getResponse(String req){
+    public static String getResponse(String req) {
         String result = "";
         try {
-            URL url = new URL(MAIN_URL+req);
+            URL url = new URL(MAIN_URL + req);
             BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
             String strTemp;
             while (null != (strTemp = br.readLine())) {
-                result=result+strTemp;
+                result = result + strTemp;
             }
         } catch (Exception ex) {
             ex.printStackTrace();

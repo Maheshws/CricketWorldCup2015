@@ -24,7 +24,7 @@ public class MainActivity extends MaterialNavigationDrawer {
     @Override
     public void init(Bundle savedInstanceState) {
         allowArrowAnimation();
-        this.setDrawerHeaderImage(this.getResources().getDrawable(R.drawable.banner_1));
+        //this.setDrawerHeaderImage(this.getResources().getDrawable(R.drawable.banner_1));
 
 
         // create sections

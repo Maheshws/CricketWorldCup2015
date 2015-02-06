@@ -10,8 +10,8 @@
         android:id="@+id/hello_world"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="#FFFFFF"
+        android:padding="32dp"
         android:text="TextView"
-        android:padding="32dp" />
+        android:textColor="#FFFFFF" />
 
 </FrameLayout>

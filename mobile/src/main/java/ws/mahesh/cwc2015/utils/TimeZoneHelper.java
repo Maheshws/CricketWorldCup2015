@@ -26,4 +26,20 @@ public class TimeZoneHelper {
             return time;
         }
     }
+
+    public static String getFeedTime(String time) {
+        try {
+            SimpleDateFormat sourceFormat = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
+            sourceFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+            Date parsed = sourceFormat.parse(time);
+
+            TimeZone tz = TimeZone.getTimeZone(TimeZone.getDefault().getID());
+            SimpleDateFormat destFormat = new SimpleDateFormat("MMM dd hh:mm aaa, z");
+            destFormat.setTimeZone(tz);
+
+            return destFormat.format(parsed);
+        } catch (ParseException e) {
+            return time;
+        }
+    }
 }

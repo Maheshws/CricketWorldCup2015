@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import ws.mahesh.cwc2015.R;
+import ws.mahesh.cwc2015.utils.TimeZoneHelper;
 import ws.mahesh.cwc2015.webservices.models.NewsFeed;
 
 /**
@@ -39,7 +40,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.FeedsViewHol
         NewsFeed current = data.get(position);
         holder.FTitle.setText(current.getTitle());
         holder.FDes.setText(current.getDescription());
-        holder.FTStamp.setText(current.getTimestamp());
+        holder.FTStamp.setText(TimeZoneHelper.getFeedTime(current.getTimestamp()));
 
     }
 
