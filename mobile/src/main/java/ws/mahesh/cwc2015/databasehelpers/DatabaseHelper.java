@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
+import ws.mahesh.cwc2015.utils.TimeZoneHelper;
+
 /**
  * Created by Mahesh on 1/24/2015.
  */
@@ -100,5 +102,47 @@ public class DatabaseHelper extends SQLiteAssetHelper {
 
         c.moveToFirst();
         return c;
+    }
+
+    public Cursor getFixturesLimited() {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"id", "match_id", "matchtype", "team1", "team2", " team1_img", "team2_img", "date", "day", "time", "group_id", "stadium", "city", "country", "results", "result_full"};
+        String sqlTables = "fixtures";
+        String orderBy = "id ASC";
+        String where="id>=?";
+        String index=""+getNowIndex();
+
+        qb.setTables(sqlTables);
+        Cursor c = qb.query(db, sqlSelect, where, new String[]{index},
+                null, null, orderBy, String.valueOf(3));
+
+        c.moveToFirst();
+        return c;
+    }
+
+    public int getNowIndex(){
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"id", "date", "time"};
+        String sqlTables = "fixtures";
+        String orderBy = "id ASC";
+
+        qb.setTables(sqlTables);
+        Cursor c = qb.query(db, sqlSelect, null, null,
+                null, null, orderBy);
+
+        c.moveToFirst();
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                   if(TimeZoneHelper.compareTime((c.getString(c.getColumnIndex("date"))+" "+c.getString(c.getColumnIndex("time")))))
+                       return c.getInt(c.getColumnIndex("id"));
+                } while (c.moveToNext());
+            }
+        }
+        return 0;
     }
 }

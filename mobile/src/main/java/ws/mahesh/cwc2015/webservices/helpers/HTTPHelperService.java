@@ -22,7 +22,8 @@ public final class HTTPHelperService {
                 result = result + strTemp;
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            return null;
+            //ex.printStackTrace();
         }
         return result;
     }

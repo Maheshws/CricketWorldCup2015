@@ -43,6 +43,31 @@ public class CWC15Servlet extends HttpServlet {
         } else if (paramId.equals("feed")) {
             List<NewsFeed> newsFeed = CWC15Service.getNewsFeed();
             responseString = jsonHelperService.getNewsFeedJSON(newsFeed);
+        } else if (paramId.equals("all")) {
+            long timestamp = 0;
+            Date lastModified = StringUtils.getDate(request.getHeader("If-Modified-Since"));
+            logger.info("lastModified = " + lastModified);
+            if (lastModified != null) {
+                timestamp = lastModified.getTime();
+            }
+            List<Match> matchesList = CWC15Service.getMatches();
+            String[] matches=CWC15Service.getAllMatchIds(matchesList);
+            logger.finer("Request matches : " + matches);
+            List<SimpleScore> scores = new ArrayList<SimpleScore>();
+            for (String matchId : matches) {
+                if(matchId!=null) {
+                    int id = Integer.parseInt(matchId);
+                    SimpleScore simpleScore = CWC15Service.getScore(id);
+                    if (timestamp == 0 || (simpleScore != null && simpleScore.getTimestamp() > timestamp)) {
+                        scores.add(simpleScore);
+                    }
+                }
+            }
+            if (scores.size() == 0) {
+                response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+                return;
+            }
+            responseString = jsonHelperService.getSimpleScoresJSON(scores, System.currentTimeMillis());
         } else if (StringUtils.isNumericPlus(paramId)) {
             long timestamp = 0;
             Date lastModified = StringUtils.getDate(request.getHeader("If-Modified-Since"));

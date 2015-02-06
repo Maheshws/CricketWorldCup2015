@@ -12,6 +12,7 @@ import ws.mahesh.cwc2015.fragments.BlankFragment;
 import ws.mahesh.cwc2015.fragments.FeedsFragment;
 import ws.mahesh.cwc2015.fragments.FixturesFragment;
 import ws.mahesh.cwc2015.fragments.PointsTableFragment;
+import ws.mahesh.cwc2015.fragments.ScoresFragment;
 import ws.mahesh.cwc2015.fragments.TeamsFragment;
 import ws.mahesh.cwc2015.fragments.VenueFragment;
 import ws.mahesh.cwc2015.webservices.FeedUpdaterService;
@@ -24,11 +25,11 @@ public class MainActivity extends MaterialNavigationDrawer {
     @Override
     public void init(Bundle savedInstanceState) {
         allowArrowAnimation();
-        //this.setDrawerHeaderImage(this.getResources().getDrawable(R.drawable.banner_1));
+        this.setDrawerHeaderImage(this.getResources().getDrawable(R.drawable.banner_1));
 
 
         // create sections
-        scoresSection = this.newSection("Scores", this.getResources().getDrawable(R.drawable.ic_whatshot_black_24dp), new BlankFragment()).setSectionColor(getResources().getColor(R.color.colorScores));
+        scoresSection = this.newSection("Scores", this.getResources().getDrawable(R.drawable.ic_whatshot_black_24dp), new ScoresFragment()).setSectionColor(getResources().getColor(R.color.colorScores));
 
         countdownSection = this.newSection("Feed", this.getResources().getDrawable(R.drawable.ic_schedule_black_24dp), new FeedsFragment()).setSectionColor(getResources().getColor(R.color.colorCountDown));
         teamsSection = this.newSection("Teams", this.getResources().getDrawable(R.drawable.ic_group_black_24dp), new TeamsFragment()).setSectionColor(getResources().getColor(R.color.colorTeams));
@@ -73,7 +74,7 @@ public class MainActivity extends MaterialNavigationDrawer {
         this.addBottomSection(settingsSection);
 
         this.setBackPattern(MaterialNavigationDrawer.BACKPATTERN_BACK_TO_FIRST);
-        startService(new Intent(MainActivity.this, FeedUpdaterService.class));
+        //startService(new Intent(MainActivity.this, FeedUpdaterService.class));
     }
 
 

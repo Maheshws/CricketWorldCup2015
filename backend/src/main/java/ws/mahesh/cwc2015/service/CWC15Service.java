@@ -101,4 +101,13 @@ public class CWC15Service {
         }
         return livefeed;
     }
+
+    public String[] getAllMatchIds(List<Match> matches) {
+        String[] result=new String[matches.size()];
+        for(int i=0;i<matches.size();i++){
+            if(Utils.isIntlTeam(matches.get(i).getTeamOne()))
+                result[i]= String.valueOf(matches.get(i).getMatchId());
+        }
+        return result;
+    }
 }

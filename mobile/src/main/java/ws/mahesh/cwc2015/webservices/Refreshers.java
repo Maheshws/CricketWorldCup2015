@@ -26,6 +26,8 @@ public final class Refreshers {
 
     public void getFeed() {
         String feed = HTTPHelperService.getResponse("csa?id=feed");
+        if(feed==null)
+            return;
         List<NewsFeed> feeds = JSONHelperService.getFeedJSON(feed);
         SharedPreferences appSharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
@@ -35,6 +37,7 @@ public final class Refreshers {
         prefsEditor.apply();
         Log.i("I", "Got feed");
     }
+
     public void getMatches() {
         String feed = HTTPHelperService.getResponse("csa");
         List<Matches> matches = JSONHelperService.getMatchesJSON(feed);

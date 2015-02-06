@@ -19,7 +19,7 @@ public class MemCacheServiceLong {
     private static final Logger logger = Logger.getLogger(MemCacheServiceLong.class.getName());
 
     private static final String LIVEFEED = "LIVEFEED";
-    private static final int TIMEOUT_SECONDS = 600;
+    private static final int TIMEOUT_SECONDS = 3600;
 
     private Cache cache;
 
